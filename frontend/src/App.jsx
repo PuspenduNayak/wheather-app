@@ -1,87 +1,103 @@
 import { useState } from 'react';
 import './App.css';
 
+const BACKEND_URL = 'http://localhost:5000';
+
 function App() {
   const [city, setCity] = useState('');
   const [weather, setWeather] = useState(null);
+  const [forecast, setForecast] = useState([]);
   const [error, setError] = useState('');
 
-  const fetchWeatherByCity = async () => {
-    setCity("")
-    try {
-      const res = await fetch(`http://localhost:5000/weather?city=${city}`);
-      const data = await res.json();
+  const clearMessages = () => {
+    setError('');
+    setWeather(null);
+    setForecast([]);
+  };
 
-      if (res.ok) {
-        setWeather(data);
-        setError('');
-      } else {
-        setError(data.message || 'Error fetching weather');
-        setWeather(null);
-      }
-    } catch {
-      setError('Error connecting to server');
-      setWeather(null);
+  const fetchWeatherByCity = async () => {
+    clearMessages();
+    try {
+      const res = await fetch(`${BACKEND_URL}/weather?city=${city}`);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message);
+      setWeather(data);
+
+      const forecastRes = await fetch(`${BACKEND_URL}/forecast?lat=${data.coord.lat}&lon=${data.coord.lon}`);
+      const forecastData = await forecastRes.json();
+      if (!forecastRes.ok) throw new Error(forecastData.message);
+      setForecast(forecastData.forecast);
+    } catch (err) {
+      setError(err.message);
     }
   };
 
   const fetchWeatherByLocation = () => {
-    setCity("")
+    clearMessages();
     if (!navigator.geolocation) {
-      setError('Geolocation is not supported');
+      setError('Geolocation not supported');
       return;
     }
 
     navigator.geolocation.getCurrentPosition(
-      async (position) => {
-        const { latitude, longitude } = position.coords;
+      async (pos) => {
+        const { latitude, longitude } = pos.coords;
         try {
-          const res = await fetch(`http://localhost:5000/weather?lat=${latitude}&lon=${longitude}`);
+          const res = await fetch(`${BACKEND_URL}/weather?lat=${latitude}&lon=${longitude}`);
           const data = await res.json();
+          if (!res.ok) throw new Error(data.message);
+          setWeather(data);
 
-          if (res.ok) {
-            setWeather(data);
-            setError('');
-          } else {
-            setError(data.message || 'Error fetching weather');
-            setWeather(null);
-          }
-        } catch {
-          setError('Error connecting to server');
-          setWeather(null);
+          const forecastRes = await fetch(`${BACKEND_URL}/forecast?lat=${latitude}&lon=${longitude}`);
+          const forecastData = await forecastRes.json();
+          if (!forecastRes.ok) throw new Error(forecastData.message);
+          setForecast(forecastData.forecast);
+        } catch (err) {
+          setError(err.message);
         }
       },
-      () => {
-        setError('Permission denied or error getting location');
-      }
+      () => setError('Permission denied')
     );
   };
 
   return (
     <div className="app">
-      <h1>🌦️ Weather App</h1>
+      <h1>🌤️ Weather Forecast</h1>
 
-      <div style={{ marginBottom: '20px' }}>
+      <div className="search">
         <input
           type="text"
-          placeholder="Enter city"
+          placeholder="Enter city..."
           value={city}
           onChange={(e) => setCity(e.target.value)}
         />
         <button onClick={fetchWeatherByCity}>Get Weather</button>
-        <button onClick={fetchWeatherByLocation} style={{ marginLeft: '10px' }}>
-          📍 Use My Location
-        </button>
+        <button onClick={fetchWeatherByLocation}>📍 Use My Location</button>
       </div>
 
       {error && <p className="error">{error}</p>}
 
       {weather && (
-        <div className="weather">
+        <div className="weather-info">
           <h2>{weather.name}</h2>
-          <p>🌡️ {weather.temp} °C</p>
+          <p>🌡️ {weather.temp}°C</p>
           <p>💧 Humidity: {weather.humidity}%</p>
           <p>🌥️ {weather.description}</p>
+        </div>
+      )}
+
+      {forecast.length > 0 && (
+        <div className="forecast">
+          <h3>5-Day Forecast</h3>
+          <div className="forecast-grid">
+            {forecast.map((day, i) => (
+              <div key={i} className="day">
+                <strong>{day.date}</strong>
+                <p>🌡️ {day.temp}°C</p>
+                <p>🌥️ {day.description}</p>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </div>

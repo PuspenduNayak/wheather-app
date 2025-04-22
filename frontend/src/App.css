@@ -1,27 +1,44 @@
 .app {
   text-align: center;
-  font-family: sans-serif;
-  margin-top: 3rem;
+  font-family: Arial;
+  padding: 2rem;
 }
 
-input {
-  padding: 10px;
-  font-size: 1rem;
-  margin-right: 10px;
+.search input {
+  padding: 8px;
+  font-size: 16px;
 }
 
-button {
-  padding: 10px 15px;
-  font-size: 1rem;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.weather {
-  margin-top: 2rem;
+.search button {
+  padding: 8px 10px;
+  margin: 0 5px;
+  font-size: 16px;
 }
 
 .error {
   color: red;
   margin-top: 1rem;
+}
+
+.weather-info {
+  margin-top: 2rem;
+}
+
+.forecast {
+  margin-top: 2rem;
+}
+
+.forecast-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.day {
+  background: #333;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 120px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.1);
 }
