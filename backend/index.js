@@ -79,7 +79,6 @@ app.get('/forecast', async (req, res) => {
 
         currentDate = forecastDate; // Update current date to avoid duplicate entries
       }
-      console.log(forecast)
     });
 
     res.json({ forecast });
