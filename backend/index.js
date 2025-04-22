@@ -9,26 +9,27 @@ app.use(cors()); // allow requests from frontend
 const PORT = 5000;
 
 app.get('/weather', async (req, res) => {
-  const city = req.query.city;
+  const { city, lat, lon } = req.query;
   const apiKey = process.env.API_KEY;
 
-  if (!city) {
-    return res.status(400).json({ message: 'City is required' });
+  let url = '';
+  let params = { appid: apiKey, units: 'metric' };
+
+  if (city) {
+    url = 'https://api.openweathermap.org/data/2.5/weather';
+    params.q = city;
+  } else if (lat && lon) {
+    url = 'https://api.openweathermap.org/data/2.5/weather';
+    params.lat = lat;
+    params.lon = lon;
+  } else {
+    return res.status(400).json({ message: 'City or coordinates required' });
   }
 
   try {
-    const response = await axios.get(
-      `https://api.openweathermap.org/data/2.5/weather`,
-      {
-        params: {
-          q: city,
-          appid: apiKey,
-          units: 'metric'
-        }
-      }
-    );
-
+    const response = await axios.get(url, { params });
     const data = response.data;
+
     res.json({
       name: data.name,
       temp: data.main.temp,
@@ -39,6 +40,7 @@ app.get('/weather', async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch weather data' });
   }
 });
+
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
