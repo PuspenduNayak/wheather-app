@@ -1,0 +1,26 @@
+.app {
+  text-align: center;
+  font-family: sans-serif;
+  margin-top: 3rem;
+}
+
+input {
+  padding: 10px;
+  font-size: 1rem;
+  margin-right: 10px;
+}
+
+button {
+  padding: 10px 15px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.weather {
+  margin-top: 2rem;
+}
+
+.error {
+  color: red;
+  margin-top: 1rem;
+}
