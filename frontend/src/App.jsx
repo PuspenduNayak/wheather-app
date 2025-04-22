@@ -25,6 +25,7 @@ function App() {
   };
 
   const fetchWeatherByLocation = () => {
+
     if (!navigator.geolocation) {
       setError('Geolocation is not supported');
       return;
