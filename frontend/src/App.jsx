@@ -7,6 +7,7 @@ function App() {
   const [error, setError] = useState('');
 
   const fetchWeatherByCity = async () => {
+    setCity("")
     try {
       const res = await fetch(`http://localhost:5000/weather?city=${city}`);
       const data = await res.json();
@@ -25,7 +26,7 @@ function App() {
   };
 
   const fetchWeatherByLocation = () => {
-
+    setCity("")
     if (!navigator.geolocation) {
       setError('Geolocation is not supported');
       return;
