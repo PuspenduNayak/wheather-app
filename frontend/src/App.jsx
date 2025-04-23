@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
 
-const BACKEND_URL = 'http://localhost:5000';
+const BACKEND_URL = 'https://wheather-app-2pba.onrender.com';
 
 function App() {
   const [city, setCity] = useState('');
