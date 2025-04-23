@@ -61,12 +61,18 @@ app.get('/forecast', async (req, res) => {
       }
     );
 
+    // Get today's date string for comparison
+    const todayDate = new Date().toLocaleDateString();
+
     // Group the data by date (show only one entry per day)
     const forecast = [];
     let currentDate = null;
 
     response.data.list.forEach((entry) => {
       const forecastDate = new Date(entry.dt * 1000).toLocaleDateString();
+
+      // Skip today's date
+      if (forecastDate === todayDate) return;
 
       // Only add the first entry of each day
       if (forecastDate !== currentDate) {

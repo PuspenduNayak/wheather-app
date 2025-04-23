@@ -1,12 +1,39 @@
 .app {
-  text-align: center;
-  font-family: Arial;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
   padding: 2rem;
+  display: grid;
+  gap: 2rem;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(247, 254, 231, 0.95) 100%);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-color);
+}
+
+.search {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 
 .search input {
-  padding: 8px;
-  font-size: 16px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 2px solid #d9f99d;
+  border-radius: var(--border-radius);
+  width: 300px;
+  transition: var(--transition);
+  background-color: var(--card-background);
+  font-family: 'Poppins', sans-serif;
+  color: #d9f99d;
+}
+
+.search input::placeholder {
+  color: #666666;
 }
 
 .search button {
@@ -16,29 +43,164 @@
 }
 
 .error {
-  color: red;
-  margin-top: 1rem;
+  color: #b91c1c;
+  background-color: #fee2e2;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  margin: 1rem 0;
+  text-align: center;
+  border: 1px solid #fecaca;
+  font-family: 'Poppins', sans-serif;
 }
 
 .weather-info {
-  margin-top: 2rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f7fee7 100%);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  display: grid;
+  gap: 1.5rem;
+  border: 1px solid #d9f99d;
+}
+
+.weather-info h2 {
+  font-size: 1.5rem;
+  color: var(--text-color);
+  margin-bottom: 1rem;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
+.weather-details {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.weather-detail {
+  background: linear-gradient(135deg, #f7fee7 0%, #ecfccb 100%);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  text-align: center;
+  border: 1px solid #d9f99d;
+  transition: var(--transition);
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-color);
+}
+
+.weather-detail:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 6px -1px rgba(77, 124, 15, 0.2);
 }
 
 .forecast {
   margin-top: 2rem;
 }
 
+.forecast h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-color);
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 600;
+}
+
 .forecast-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
 }
 
 .day {
-  background: #333;
-  padding: 1rem;
-  border-radius: 8px;
-  width: 120px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  background: linear-gradient(135deg, #f7fee7 0%, #ecfccb 100%);
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid #d9f99d;
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-color);
+}
+
+.day:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(77, 124, 15, 0.2);
+}
+
+.day h3 {
+  font-size: 1.25rem;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.day p {
+  color: var(--text-color);
+  font-weight: 400;
+}
+
+.temperature {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-color);
+  text-shadow: 1px 1px 2px rgba(77, 124, 15, 0.2);
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Loading animation */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.loading::after {
+  content: "";
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--primary-color);
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Agriculture-themed icons and decorations */
+.weather-icon {
+  width: 64px;
+  height: 64px;
+  filter: drop-shadow(2px 2px 4px rgba(77, 124, 15, 0.2));
+}
+
+.weather-detail-icon {
+  font-size: 2rem;
+  color: var(--text-color);
+  margin-bottom: 0.5rem;
+}
+
+/* Soil moisture indicator */
+.soil-moisture {
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(90deg, #d9f99d 0%, #ecfccb 100%);
+  border-radius: 4px;
+  overflow: hidden;
+  margin-top: 0.5rem;
+}
+
+.soil-moisture-level {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+  transition: width 0.3s ease;
 }
