@@ -100,6 +100,7 @@ function App() {
 
       {weather && (
         <div className="weather-info">
+          <h2>{weather.name}</h2>
           <div className='fullweather'>
             {/* this is changed three divs */}
             <div className='weatherinfo'><img src={tempimage} alt="" className='weatherimage' /> <br />  Temp: {weather.temp}°C</div>
