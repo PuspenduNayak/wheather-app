@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './App.css';
-import tempimage from './src/assets/temperature.png' //this is imported from asssets folder
-import humidityimage from './src/assets/humidity.png' //this is imported from asssets folder
+import tempimage from './assets/temperature.png' //this is imported from asssets folder
+import humidityimage from './assets/humidity.png' //this is imported from asssets folder
 import editinfoimage from './src/assets/edit-info.png' //this is imported from asssets folder
 
 const BACKEND_URL = 'https://wheather-app-2pba.onrender.com';
