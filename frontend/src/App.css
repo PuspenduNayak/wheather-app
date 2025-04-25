@@ -55,6 +55,15 @@
   font-family: 'Poppins', sans-serif;
 }
 
+.crop-info {
+  margin-top: 1rem;
+  background-color: #eafbea;
+  border-left: 5px solid #4caf50;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
 .weather-info {
   background: white;
   padding: 2rem;

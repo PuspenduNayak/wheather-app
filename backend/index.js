@@ -95,7 +95,84 @@ app.get('/forecast', async (req, res) => {
   }
 });
 
+// ===============================
+// Crop Recommendation
+// ===============================
+app.get('/recommend', (req, res) => {
+  try {
+    const { temp, humidity } = req.query;
 
+    if (!temp || !humidity) {
+      return res.status(400).json({ message: 'Temperature and humidity are required' });
+    }
+
+    const t = parseFloat(temp);
+    const h = parseFloat(humidity);
+
+    let crop = 'Unknown'; // Default value
+
+    // Rice: Prefers warm and humid conditions
+    if (t >= 20 && t <= 35 && h >= 60 && h <= 90) {
+      crop = 'Rice';
+    }
+    // Wheat: Prefers cool to moderate temperatures and moderate humidity
+    else if (t >= 18 && t <= 27 && h >= 50 && h <= 70) {
+      crop = 'Wheat';
+    }
+    // Maize: Warm temperatures and moderate to high humidity
+    else if (t >= 22 && t <= 35 && h >= 50 && h <= 80) {
+      crop = 'Maize';
+    }
+    // Cotton: Prefers hot and dry conditions
+    else if (t >= 24 && t <= 35 && h >= 40 && h <= 60) {
+      crop = 'Cotton';
+    }
+    // Sugarcane: Requires high temperature and humidity
+    else if (t >= 25 && t <= 38 && h >= 60 && h <= 90) {
+      crop = 'Sugarcane';
+    }
+    // Barley: Prefers cool climates
+    else if (t >= 15 && t <= 25 && h >= 40 && h <= 70) {
+      crop = 'Barley';
+    }
+    // Groundnut (Peanut): Grows in hot, dry climates
+    else if (t >= 25 && t <= 40 && h >= 30 && h <= 70) {
+      crop = 'Groundnut (Peanut)';
+    }
+    // Soybean: Thrives in warm climates
+    else if (t >= 20 && t <= 30 && h >= 50 && h <= 80) {
+      crop = 'Soybean';
+    }
+    // Pulses (Chickpeas, Lentils): Prefers moderate temperature and humidity
+    else if (t >= 15 && t <= 30 && h >= 40 && h <= 60) {
+      crop = 'Pulses (Chickpeas, Lentils)';
+    }
+    // Mustard: Cool to mild temperatures, tolerates light frost
+    else if (t >= 10 && t <= 25 && h >= 40 && h <= 60) {
+      crop = 'Mustard';
+    }
+    // Tea: Requires high humidity and moderate temperatures
+    else if (t >= 15 && t <= 30 && h >= 60 && h <= 90) {
+      crop = 'Tea';
+    }
+    // Rice (Lowland): Lower temperatures, high humidity
+    else if (t >= 18 && t <= 28 && h >= 70 && h <= 90) {
+      crop = 'Rice (Lowland)';
+    }
+
+    // If no suitable crop is found, the default 'Unknown' will remain
+
+    // Add a fallback if no suitable crop found
+    else {
+      crop = 'No ideal match found. Consider consulting local agricultural data for more details.';
+    }
+
+    res.json({ crop });
+  } catch (err) {
+    console.error('Crop Recommendation Error:', err.message);
+    res.status(500).json({ message: 'Error generating crop recommendation' });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Backend running on http://localhost:${PORT}`);

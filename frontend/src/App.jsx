@@ -12,10 +12,24 @@ function App() {
   const [forecast, setForecast] = useState([]);
   const [error, setError] = useState('');
 
+  const [crop, setCrop] = useState('');
+
   const clearMessages = () => {
     setError('');
     setWeather(null);
     setForecast([]);
+  };
+
+  const fetchCropRecommendation = async (temp, humidity) => {
+    try {
+      const res = await fetch(`${BACKEND_URL}/recommend?temp=${temp}&humidity=${humidity}`);
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message);
+      setCrop(data.crop); // 🔧 ADDED: Set recommended crop
+    } catch (err) {
+      onsole.error('Crop Fetch Error:', err);
+      setError('Failed to fetch crop recommendation');
+    }
   };
 
   const fetchWeatherByCity = async () => {
@@ -25,6 +39,8 @@ function App() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.message);
       setWeather(data);
+
+      await fetchCropRecommendation(data.temp, data.humidity); // 🔧 ADDED
 
       const forecastRes = await fetch(`${BACKEND_URL}/forecast?lat=${data.coord.lat}&lon=${data.coord.lon}`);
       const forecastData = await forecastRes.json();
@@ -50,6 +66,8 @@ function App() {
           const data = await res.json();
           if (!res.ok) throw new Error(data.message);
           setWeather(data);
+
+          await fetchCropRecommendation(data.temp, data.humidity); // 🔧 ADDED
 
           const forecastRes = await fetch(`${BACKEND_URL}/forecast?lat=${latitude}&lon=${longitude}`);
           const forecastData = await forecastRes.json();
@@ -84,10 +102,16 @@ function App() {
         <div className="weather-info">
           <div className='fullweather'>
             {/* this is changed three divs */}
-          <div className='weatherinfo'><img src={tempimage} alt="" className='weatherimage'/> <br />  Temp: {weather.temp}°C</div> 
-          <div className='weatherinfo'> <img src={humidityimage} alt="" className='weatherimage' /><br/>   Humidity: {weather.humidity}%</div>
-          <div className='weatherinfo'> <img src={editinfoimage} alt="" className='weatherimage' /> <br />  Desc: {weather.description}</div>
+            <div className='weatherinfo'><img src={tempimage} alt="" className='weatherimage' /> <br />  Temp: {weather.temp}°C</div>
+            <div className='weatherinfo'> <img src={humidityimage} alt="" className='weatherimage' /><br />   Humidity: {weather.humidity}%</div>
+            <div className='weatherinfo'> <img src={editinfoimage} alt="" className='weatherimage' /> <br />  Desc: {weather.description}</div>
           </div>
+          {crop && ( // 🔧 ADDED: Show crop recommendation
+            <div className="crop-info">
+              <h3>🌾 Recommended Crop:</h3>
+              <p>{crop}</p>
+            </div>
+          )}
         </div>
       )}
 
