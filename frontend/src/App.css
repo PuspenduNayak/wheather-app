@@ -1,3 +1,5 @@
+/* maximum that are color white are changed */
+
 .app {
   max-width: 1200px;
   width: 100%;
@@ -29,11 +31,11 @@
   transition: var(--transition);
   background-color: var(--card-background);
   font-family: 'Poppins', sans-serif;
-  color: #d9f99d;
+  color: white;
 }
 
 .search input::placeholder {
-  color: #666666;
+  color: white;
 }
 
 .search button {
@@ -54,13 +56,29 @@
 }
 
 .weather-info {
-  background: linear-gradient(135deg, #ffffff 0%, #f7fee7 100%);
+  background: white;
   padding: 2rem;
   border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
   display: grid;
   gap: 1.5rem;
   border: 1px solid #d9f99d;
+}
+.fullweather{
+  display:flex;
+  flex-direction:row;
+  gap:1rem;
+}
+.weatherinfo{
+  background:#f5f5f4;
+  width:12rem;
+  height:12rem;
+  text-align: center;
+  border-radius:1rem;
+  padding-top:1.2rem;
+}
+.weatherimage{
+  width:5rem;
+  height:5rem;
 }
 
 .weather-info h2 {
@@ -96,6 +114,7 @@
 
 .forecast {
   margin-top: 2rem;
+  text-align:center;
 }
 
 .forecast h2 {
@@ -114,10 +133,9 @@
 }
 
 .day {
-  background: linear-gradient(135deg, #f7fee7 0%, #ecfccb 100%);
+  background: #f5f5f4;
   padding: 1.5rem;
   border-radius: var(--border-radius);
-  box-shadow: var(--box-shadow);
   transition: var(--transition);
   display: flex;
   flex-direction: column;

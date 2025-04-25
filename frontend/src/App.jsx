@@ -62,7 +62,7 @@ function App() {
 
   return (
     <div className="app">
-      <h1>🌤️ Weather Forecast</h1>
+      <h1>🌤️ Agri Weather Pro</h1>
 
       <div className="search">
         <input
@@ -80,9 +80,12 @@ function App() {
       {weather && (
         <div className="weather-info">
           <h2>{weather.name}</h2>
-          <p>🌡️ {weather.temp}°C</p>
-          <p>💧 Humidity: {weather.humidity}%</p>
-          <p>🌥️ {weather.description}</p>
+          <div className='fullweather'>
+            {/* this is changed three divs */}
+            <div className='weatherinfo'><img src={tempimage} alt="" className='weatherimage' /> <br />  Temp: {weather.temp}°C</div>
+            <div className='weatherinfo'> <img src={humidityimage} alt="" className='weatherimage' /><br />   Humidity: {weather.humidity}%</div>
+            <div className='weatherinfo'> <img src={editinfoimage} alt="" className='weatherimage' /> <br />  Desc: {weather.description}</div>
+          </div>
         </div>
       )}
 

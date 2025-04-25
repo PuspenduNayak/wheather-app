@@ -36,7 +36,7 @@ body {
   width: 100%;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, #f7fee7 0%, #ecfccb 50%, #d9f99d 100%);
+  background: white;
   background-attachment: fixed;
 }
 
@@ -102,6 +102,6 @@ button:focus-visible {
   }
   
   body {
-    background: linear-gradient(135deg, #1a2e05 0%, #2d3e0f 50%, #365314 100%);
+    background:white;
   }
 }
