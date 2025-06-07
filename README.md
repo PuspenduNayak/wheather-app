@@ -82,14 +82,16 @@ touch .env
 # API_KEY=your_openweather_api_key
 
 node index.js
-
+```
 
 ### 🎨 Frontend Setup
+```bash
 cd frontend
 npm install
 npm start
-
+```
 Folder Structure
+```
 AgriWeather-Pro/
 │
 ├── backend/
@@ -103,8 +105,8 @@ AgriWeather-Pro/
 │   └── public/
 │
 └── README.md
-
- Author
+```
+Author
 Puspendu Nayak
 <p align="left">
   <a href="https://www.linkedin.com/in/puspendu-nayak/" target="_blank">
