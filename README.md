@@ -10,7 +10,7 @@
 
 ## 🌐 Live Demo
 
-> 🔗 [Try the app on Render](https://wheather-app-2pba.onrender.com)
+> 🔗 [Try the app on Render](https://wheather-app-6cd5.vercel.app/)
 
 ---
 
